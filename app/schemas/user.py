@@ -59,3 +59,19 @@ class RegisterResponse(BaseModel):
     user: UserResponse
     access_token: str
     token_type: str = "bearer"
+
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
+    @field_validator("email")
+    @classmethod
+    def normalize_email(cls, v: str) -> str:
+        return v.strip().lower()
+
+
+class LoginResponse(BaseModel):
+    message: str
+    access_token: str
+    token_type: str = "bearer"
